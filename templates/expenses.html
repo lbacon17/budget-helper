@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% for expense in expenses %}
+        <p>{{ expense.category_name }}</p>
+        <p>GBP {{ expense.expense_amount }}</p>
+        <p>{{ expense.expense_description }}</p>
+        <p>{{ expense.date }}</p>
+        <p>{{ expense.created_by }}</p>
+    {% endfor %}
+
+{% endblock %}
