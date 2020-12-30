@@ -3,3 +3,43 @@
     margin-left: 1rem;
     text-shadow: 2px 2px #b8860b;
 }
+
+.sidenav {
+    background-color: #37474f;
+    margin-top: 50px;
+    margin-left: 2px;
+    height: 50%;
+}
+
+.sidenav li a {
+    color: #ffffff;
+}
+
+.callout-container {
+    background-color: blue;
+    height: 60vh;
+}
+
+.jumbotron-header {
+    padding: 15px;
+    font-size: 5rem;
+    color: #ffffff;
+    margin-top: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.signup {
+    font-size: 2rem;
+    border-radius: 10px;
+    height: 65px;
+    line-height: 65px;
+}
+
+footer {
+    background-color: #000555;
+    color: #ffffff;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}

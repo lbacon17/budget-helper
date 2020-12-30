@@ -19,10 +19,10 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-@app.route("/expenses")
-def expenses():
+@app.route("/home_page")
+def home_page():
     expenses = mongo.db.expenses.find()
-    return render_template("expenses.html", expenses=expenses)
+    return render_template("index.html", expenses=expenses)
 
 
 if __name__ == "__main__":
