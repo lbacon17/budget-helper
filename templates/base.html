@@ -22,21 +22,21 @@
         <!-- top navbar -->
         <nav class="blue-grey darken-3">
             <div class="nav-wrapper">
-            <a href="#" class="brand-logo">BUDGET H&#163;LP&#8364;R</a>
+            <a href="{{ url_for('home_page') }}" class="brand-logo">BUDGET H&#163;LP&#8364;R</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="{{ url_for('home_page') }}">Home</a></li>
                 {% if session.user %}
-                    <li><a href="{{ url_for('') }}">My Expenses</a></li>
-                    <li><a href="{{ url_for('') }}">View Profile</a></li>
-                    <li><a href="{{ url_for('') }}">New Expense</a></li>
-                    {% if user.is_superuser %}
-                        <li><a href="{{ url_for('') }}">Manage Categories</a></li>
+                    <li><a href="">My Expenses</a></li>
+                    <li><a href="">View Profile</a></li>
+                    <li><a href="">New Expense</a></li>
+                    {% if session.user.is_superuser %}
+                        <li><a href="">Manage Categories</a></li>
                     {% endif %}
-                    <li><a href="{{ url_for('') }}">Logout</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% else %}
-                    <li><a href="/">Login</a></li>
-                    <li><a href="/">Register</a></li>
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
                 {% endif %}
             </ul>
             </div>
@@ -46,36 +46,19 @@
 
         <ul class="sidenav" id="mobile-demo">
             {% if session.user %}
-                <li><a href="{{ url_for('') }}">My Expenses</a></li>
-                <li><a href="{{ url_for('') }}">View Profile</a></li>
-                <li><a href="{{ url_for('') }}">New Expense</a></li>
-                {% if user.is_superuser %}
-                    <li><a href="{{ url_for('') }}">Manage Categories</a></li>
+                <li><a href="">My Expenses</a></li>
+                <li><a href="">View Profile</a></li>
+                <li><a href="">New Expense</a></li>
+                {% if session.user %}
+                    <li><a href="">Manage Categories</a></li>
                 {% endif %}
-                <li><a href="{{ url_for('') }}">Logout</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
             {% else %}
-                <li><a href="/">Login</a></li>
-                <li><a href="/">Register</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
             {% endif %}
         </ul>
     </header>
-
-    <div class="content center-align">
-        {% if session.user %}
-
-        {% else %}
-            <div class="callout-container">
-                <div class="row">
-                    <div class="col s12">
-                        <section class="callout">
-                            <h1 class="jumbotron-header">The easiest way to track your spending</h1>
-                            <a href="#" class="btn-large signup">Sign up now&#33;</a>       
-                        </section>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    </div>
 
     {% block content %}
 

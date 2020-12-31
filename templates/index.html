@@ -1,6 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 
+    <div class="content center-align">
+        {% if session.user %}
+            <h1 class="welcome-heading">Welcome, {{ session.user }}</h1>
+        {% else %}
+            <div class="callout-container">
+                <div class="row">
+                    <div class="col s12">
+                        <section class="callout">
+                            <h1 class="jumbotron-header">The easiest way to track your spending</h1>
+                            <a href="{{ url_for('register') }}" class="btn-large signup">Sign up now&#33;</a>       
+                        </section>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
     {% for expense in expenses %}
         <p>{{ expense.category_name }}</p>
         <p>GBP {{ expense.expense_amount }}</p>
