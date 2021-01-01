@@ -90,6 +90,18 @@ def logout():
     return redirect(url_for("home_page"))
 
 
+@app.route("/my_expenses/<username>")
+def my_expenses(username):
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    expenses = mongo.db.expenses.find()
+
+    if session["user"]:
+        return render_template("my_expenses.html", username=username)
+    
+    return redirect(url_for("login"))
+
+
 @app.route("/new_expense", methods=["GET", "POST"])
 def new_expense():
     if request.method == "POST":
@@ -97,7 +109,7 @@ def new_expense():
             "date": request.form.get("date"),
             "category_name": request.form.get("category_name"),
             "expense_description": request.form.get("expense_description"),
-            "expense_amount": float(request.form.get("expense_amount"), 2),
+            "expense_amount": float(request.form.get("expense_amount")),
             "created_by": session["user"]
         }
         mongo.db.expenses.insert_one(new_expense)

@@ -44,7 +44,7 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('home_page') }}">Home</a></li>
                     {% if session.user %}
-                    <li><a href="">My Expenses</a></li>
+                    <li><a href="{{ url_for('my_expenses', username=session['user']) }}">My Expenses</a></li>
                     <li><a href="">View Profile</a></li>
                     <li><a href="{{ url_for('new_expense') }}">New Expense</a></li>
                     {% if session.user.is_superuser %}
@@ -63,7 +63,7 @@
 
         <ul class="sidenav" id="mobile-demo">
             {% if session.user %}
-                <li><a href="">My Expenses</a></li>
+                <li><a href="{{ url_for('my_expenses', username=session['user']) }}">My Expenses</a></li>
                 <li><a href="">View Profile</a></li>
                 <li><a href="{{ url_for('new_expense') }}">New Expense</a></li>
             {% if session.user %}

@@ -3,13 +3,20 @@
 
 <h1 class="center-align">New Expense</h1>
 
-    <form method="POST" action="{{ url_for('new_expense') }}">  
+<div class="container">
+    <form method="POST" action="{{ url_for('new_expense') }}">
+        <!-- date selection -->
         <div class="row">
-            <div class="input-field col s6 offset-s3">
+            <div class="input-field col s12">
+                <i class="far fa-calendar-minus prefix"></i>
                 <input id="date" name="date" type="text" class="datepicker validate" required>
                 <label for="date">Date</label>
             </div>
-            <div class="input-field col s6 offset-s3">
+        </div>
+        <!-- category selection -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="far fa-folder prefix"></i>
                 <select id="category_name" name="category_name" class="validate" required>
                     <option value="" disabled selected>Choose category</option>
                     {% for category in categories %}
@@ -18,15 +25,24 @@
                 </select>
                 <label for="category_name">Category</label>
             </div>
-            <div class="input-field col s6 offset-s3">
+        </div>
+        <!-- expense description -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="far fa-clipboard prefix"></i>
                 <textarea id="expense_description" name="expense_description" minlength="5" maxlength="30" class="materialize-textarea validate" placeholder="Expense description e.g. groceries top-up" required></textarea>
                 <label for="expense_description">Expense description</label>
             </div>
-            <div class="input-field col s6 offset-s3">
+        </div>
+        <!-- expense amount -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="far fa-credit-card prefix"></i>
                 <input id="expense_amount" name="expense_amount" type="number" min="0.01" step="any" class="validate">
                 <label for="expense_amount">Amount &#163;</label>
             </div>
         </div>
+        <!-- submit button -->
         <div class="row center-align">
             <div class="col s6 offset-s3">
                 <button type="submit" class="btn-large green darken-2">
@@ -35,5 +51,6 @@
             </div>
         </div>
     </form>
+</div>
 
 {% endblock %}
