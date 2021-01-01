@@ -94,10 +94,10 @@ def logout():
 def my_expenses(username):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    expenses = mongo.db.expenses.find()
+    expenses = list(mongo.db.expenses.find())
 
     if session["user"]:
-        return render_template("my_expenses.html", username=username)
+        return render_template("my_expenses.html", username=username, expenses=expenses)
     
     return redirect(url_for("login"))
 
