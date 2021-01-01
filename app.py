@@ -22,6 +22,7 @@ mongo = PyMongo(app)
 @app.route("/home_page")
 def home_page():
     expenses = mongo.db.expenses.find()
+    recent_expenses = mongo.db.expenses.find().sort("date", -1)
     return render_template("index.html", expenses=expenses)
 
 
@@ -87,6 +88,24 @@ def logout():
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("home_page"))
+
+
+@app.route("/new_expense", methods=["GET", "POST"])
+def new_expense():
+    if request.method == "POST":
+        new_expense = {
+            "date": request.form.get("date"),
+            "category_name": request.form.get("category_name"),
+            "expense_description": request.form.get("expense_description"),
+            "expense_amount": float(request.form.get("expense_amount"), 2),
+            "created_by": session["user"]
+        }
+        mongo.db.expenses.insert_one(new_expense)
+        flash("Expense successfully added")
+        return redirect(url_for("home_page"))
+    
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("new_expense.html", categories=categories)
 
 
 if __name__ == "__main__":

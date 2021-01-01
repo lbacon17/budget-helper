@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="center-align">New Expense</h1>
+
+    <form method="POST" action="{{ url_for('new_expense') }}">  
+        <div class="row">
+            <div class="input-field col s6 offset-s3">
+                <input id="date" name="date" type="text" class="datepicker validate" required>
+                <label for="date">Date</label>
+            </div>
+            <div class="input-field col s6 offset-s3">
+                <select id="category_name" name="category_name" class="validate" required>
+                    <option value="" disabled selected>Choose category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="category_name">Category</label>
+            </div>
+            <div class="input-field col s6 offset-s3">
+                <textarea id="expense_description" name="expense_description" minlength="5" maxlength="30" class="materialize-textarea validate" placeholder="Expense description e.g. groceries top-up" required></textarea>
+                <label for="expense_description">Expense description</label>
+            </div>
+            <div class="input-field col s6 offset-s3">
+                <input id="expense_amount" name="expense_amount" type="number" min="0.01" step="any" class="validate">
+                <label for="expense_amount">Amount &#163;</label>
+            </div>
+        </div>
+        <div class="row center-align">
+            <div class="col s6 offset-s3">
+                <button type="submit" class="btn-large green darken-2">
+                    Create expense
+                </button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

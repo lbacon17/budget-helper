@@ -4,6 +4,34 @@
     <div class="content center-align">
         {% if session.user %}
             <h1 class="welcome-heading">Welcome, {{ session.user }}</h1>
+
+            <h5>Your most recent expenses</h3>
+            
+            <div class="expenses-container">
+                {% for expense in expenses %}
+                    <div class="row">
+                        <div class="col s6 m3">
+                            <span>{{ expense.date }}</span>
+                        </div>
+                        <div class="col s6 m3">
+                            <span>{{ expense.category_name }}</span>
+                        </div>
+                        <div class="col s6 m3">
+                            <span>{{ expense.expense_description }}</span>
+                        </div>
+                        <div class="col s6 m3">
+                            <span>GBP {{ expense.expense_amount }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <a href="{{ url_for('new_expense') }}" class="btn-large green">Create Expense</a>
+                    </div>
+                </div>
+            </div>
         {% else %}
             <div class="callout-container">
                 <div class="row">
@@ -17,13 +45,5 @@
             </div>
         {% endif %}
     </div>
-
-    {% for expense in expenses %}
-        <p>{{ expense.category_name }}</p>
-        <p>GBP {{ expense.expense_amount }}</p>
-        <p>{{ expense.expense_description }}</p>
-        <p>{{ expense.date }}</p>
-        <p>{{ expense.created_by }}</p>
-    {% endfor %}
 
 {% endblock %}

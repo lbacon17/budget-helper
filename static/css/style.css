@@ -1,5 +1,14 @@
 /*-- base content --*/
 
+/* #loader {
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
+    margin: 0;
+    z-index: 1;
+    position: fixed;
+} */
+
 .brand-logo {
     font-family: 'Langar', cursive;
     margin-left: 1rem;
@@ -15,6 +24,10 @@
 
 .sidenav li a {
     color: #ffffff;
+}
+
+.flash-message {
+    color: red;
 }
 
 /*-- homepage --*/
@@ -48,6 +61,10 @@
     font-family: 'Roboto', sans-serif;
     font-size: 4rem;
     font-weight: 500;
+}
+
+.expenses-container {
+    padding: 30px 20px;
 }
 
 /*-- login page --*/
