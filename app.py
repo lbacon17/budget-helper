@@ -1,4 +1,5 @@
 import os
+import datetime
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -21,8 +22,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home_page")
 def home_page():
-    expenses = mongo.db.expenses.find()
-    recent_expenses = mongo.db.expenses.find().sort("date", -1)
+    expenses = mongo.db.expenses.find().sort("date", -1)
     return render_template("index.html", expenses=expenses)
 
 
@@ -95,9 +95,10 @@ def my_expenses(username):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
     expenses = list(mongo.db.expenses.find())
+    months = mongo.db.months.find().sort("_id", -1)
 
     if session["user"]:
-        return render_template("my_expenses.html", username=username, expenses=expenses)
+        return render_template("my_expenses.html", username=username, expenses=expenses, months=months)
     
     return redirect(url_for("login"))
 
@@ -116,8 +117,17 @@ def new_expense():
         flash("Expense successfully added")
         return redirect(url_for("home_page"))
     
+    expenses = mongo.db.expenses.find()
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("new_expense.html", categories=categories)
+
+
+@app.route("/delete_expense/<expense_id>")
+def delete_expense(expense_id):
+    expenses = mongo.db.expenses.find()
+    mongo.db.expenses.remove({"_id": ObjectId(expense_id)})
+    flash("Expense deleted")
+    return redirect(url_for("my_expenses", username=session["user"], expenses=expenses))
 
 
 if __name__ == "__main__":

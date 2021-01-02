@@ -90,6 +90,18 @@
     border-radius: 10px;
 }
 
+/*-- my expenses page --*/
+
+.expense-record {
+    padding: 10px 15px;
+}
+
+.expense-record i {
+    font-size: 1.4rem;
+}
+
+/*-- footer --*/
+
 footer {
     background-color: #000555;
     color: #ffffff;
@@ -97,6 +109,8 @@ footer {
     position: fixed;
     width: 100%;
 }
+
+/*-- media queries --*/
 
 @media screen and (min-width: 768px) {
     .registration {
