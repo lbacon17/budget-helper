@@ -11,10 +11,10 @@
         type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Langar&display=swap" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     {% block styles %}
     {% endblock %}
@@ -47,9 +47,9 @@
                         <li><a href="{{ url_for('my_expenses', username=session['user']) }}">My Expenses</a></li>
                         <li><a href="{{ url_for('profile', username=session['user']) }}">View Profile</a></li>
                         <li><a href="{{ url_for('new_expense') }}">New Expense</a></li>
-                        {% if session.user.is_superuser == False %}
-                            <li><a href="">Manage Categories</a></li>
-                        {% endif %}
+                            {% if super_user %}
+                                <li><a href="">Manage Categories</a></li>
+                            {% endif %}
                         <li><a href="{{ url_for('logout') }}">Logout</a></li>
                         {% else %}
                         <li><a href="{{ url_for('login') }}">Login</a></li>
@@ -79,6 +79,16 @@
 
     <section class="center-align">
         <!-- display flash messages -->
+        {% with errors = get_flashed_messages(category_filter=['error']) %}
+            {% if errors %}
+                <div class="chip green">
+                    <i class="fas fa-window-close"></i>
+                    {% for error in errors %}
+                        <h5>{{ error }}</h5>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -88,12 +98,59 @@
         {% endwith %}
     </section>
 
-    {% block content %}
+    <main class="center-align">
+        {% block content %}
+    
+        {% endblock %}
+    </main>
 
-    {% endblock %}
-
-    <footer>
-        Footer text here
+    <footer class="page-footer">
+        <div class="info-container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h6 class="white-text">Budget Helper Ltd.</h6>
+                    <address>
+                        <i class="fas fa-location-arrow"></i> 93 Crown Street, London, SW5 7NL<br />
+                        <i class="fas fa-phone"></i> &#40;078&#41; 11 033 461<br />
+                        <i class="fas fa-at"></i> <a href="mailto:#">info&#64;budgethelper.com</a>
+                    </address>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h6 class="white-text">Follow us on social media&#33;</h6>
+                    <ul class="social-media-links">
+                        <li class="footer-list-item">
+                            <a href="https://facebook.com" target="_blank">
+                                <i class="fab fa-facebook tooltipped" data-tooltip="Facebook"></i>
+                                <span class="sr-only">Facebook</span>
+                            </a>
+                        </li>
+                        <li class="footer-list-item">
+                            <a href="https://twitter.com" target="_blank">
+                                <i class="fab fa-twitter tooltipped" data-tooltip="Twitter"></i>
+                                <span class="sr-only">Twitter</span>
+                            </a>
+                        </li>
+                        <li class="footer-list-item">
+                            <a href="https://instagram.com" target="_blank">
+                                <i class="fab fa-instagram tooltipped" data-tooltip="Instagram"></i>
+                                <span class="sr-only">Instagram</span>
+                            </a>
+                        </li>
+                        <li class="footer-list-item">
+                            <a href="https://pinterest.com" target="_blank">
+                                <i class="fab fa-pinterest tooltipped" data-tooltip="Pinterest"></i>
+                                <span class="sr-only">Pinterest</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-info center-align">
+            <div class="container">
+                <span class="copyright">&#169; Budget Helper 2020</span>
+            </div>
+        </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>

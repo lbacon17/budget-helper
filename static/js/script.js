@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $('.sidenav').sidenav();
     $('.collapsible').collapsible();
+    $('.tooltipped').tooltip();
     $('select').formSelect();
     $('.datepicker').datepicker({
         format: "mmm-dd, yyyy",
@@ -12,4 +13,5 @@ $(document).ready(function(){
         }
     });
     $('.preloader-wrapper').fadeOut('slow');
+    $('.modal').modal()
 });

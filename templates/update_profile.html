@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form class="registration" method="POST" action="{{ url_for('update_profile', user_id=user._id) }}">
+    <div class="row">
+        <div class="input-field col s6 offset-s3">
+            <input id="username" name="username" type="text" minlength="4" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required placeholder="{{ username }}">
+            <label for="username">Username</label>
+        </div>
+        <div class="input-field col s6 offset-s3">
+            <input id="email" name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="validate" required placeholder="{{ username.email_address }}">
+            <label for="email">Email address</label>
+        </div>
+        <div class="input-field col s6 offset-s3">
+            <input id="password" name="password" type="password" minlength="8" maxlength="25" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required placeholder="{{ username.password }}">
+            <label for="password">Password</label>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

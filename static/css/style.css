@@ -1,5 +1,10 @@
 /*-- base content --*/
 
+body {
+    background-color: #fafafa;
+    height: 100vh;
+}
+
 .preloader-wrapper {
     position: absolute;
     top: 50%;
@@ -31,11 +36,19 @@
     color: red;
 }
 
+main {
+    padding-bottom: 10.3rem;
+}
+
 /*-- homepage --*/
 
+.content {
+    min-height: 75vh;
+}
+
 .callout-container {
-    background-color: rgb(0, 20, 150);
-    height: 60vh;
+    background: url(/static/images/jumbotron_image.png) no-repeat center center fixed;
+    padding: 30px 15px;
 }
 
 .callout {
@@ -45,7 +58,7 @@
 .jumbotron-header {
     padding: 15px;
     font-size: 5rem;
-    color: #ffffff;
+    text-shadow: 3px 3px #dedede;
     margin-top: 30px;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
@@ -70,10 +83,15 @@
 
 /*-- login page --*/
 
-.login-heading {
-    font-size: 4.5rem;
+.login-heading,
+.registration-heading {
+    font-size: 3.6rem;
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
+}
+
+.input-field label {
+    color: #333222;
 }
 
 /*-- registration page --*/
@@ -81,9 +99,9 @@
 .registration,
 .sign-in {
     margin: 30px 40px;
-    border: 2px solid #676767;
+    /* border: 2px solid #676767;
     border-radius: 10px;
-    background-color: #fefefe;
+    background-color: #fefefe; */
 }
 
 .complete-registration,
@@ -103,12 +121,49 @@
 
 /*-- footer --*/
 
-footer {
+.page-footer {
+    height: 10.3rem;
+    position: absolute; 
+    bottom: 0;
     background-color: #000555;
     color: #ffffff;
-    bottom: 0;
-    position: fixed;
     width: 100%;
+    padding-top: 10px;
+}
+
+.info-container {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.page-footer a {
+    color: #ffffff;
+}
+
+.page-footer a:hover {
+    text-decoration: underline;
+}
+
+.social-media-links {
+    font-size: 1.6rem;
+    margin-top: 0;
+}
+
+.social-media-links li {
+    padding-right: 10px;
+}
+
+.footer-list-item {
+    display: inline-block;
+}
+
+.copyright-info {
+    padding-bottom: 10px;
+    margin-top: -10px;
+}
+
+.copyright {
+    font-size: 0.8rem;
 }
 
 /*-- media queries --*/

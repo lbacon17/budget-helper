@@ -57,12 +57,30 @@ def register():
     return render_template("register.html")
 
 
+@app.route("/update_profile/<user_id>", methods=["GET", "POST"])
+def update_profile(user_id):
+    if request.method == "POST":
+        updated_account = {
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password")),
+            "email_address": request.form.get("email").lower(),
+            "is_superuser": False
+        }
+        mongo.db.users.update({"_id": ObjectId(user_id)}, updated_account)
+        flash("Your profile was successfully updated")
+        return redirect(url_for("update_profile"))
+    
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    return render_template("update_profile.html", username=username)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         # check if username exists in db
         existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})        
+            {"username": request.form.get("username").lower()})    
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
@@ -140,6 +158,15 @@ def delete_expense(expense_id):
     mongo.db.expenses.remove({"_id": ObjectId(expense_id)})
     flash("Expense deleted")
     return redirect(url_for("my_expenses", username=session["user"], expenses=expenses))
+
+
+@app.route("/delete_account/<user_id>")
+def delete_account(user_id):
+    users = mongo.db.users.find()
+    session.pop("user")
+    mongo.db.users.remove({"_id": ObjectId(user_id)})
+    flash("Your account was deleted. You will now be redirected to the home page.")
+    return redirect(url_for("home_page", username=session["user"], users=users))
 
 
 if __name__ == "__main__":
