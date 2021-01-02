@@ -11,8 +11,5 @@ $(document).ready(function(){
             done: "Select"
         }
     });
+    $('.preloader-wrapper').fadeOut('slow');
 });
-
-// $(window).load(function(){
-//     $('.preloader-wrapper').fadeOut(3500);
-// });
