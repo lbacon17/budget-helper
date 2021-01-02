@@ -45,7 +45,8 @@ def register():
         create_account = {
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password")),
-            "email_address": request.form.get("email").lower()
+            "email_address": request.form.get("email").lower(),
+            "is_superuser": False
         }
         mongo.db.users.insert_one(create_account)
 
@@ -88,6 +89,17 @@ def logout():
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("home_page"))
+
+
+@app.route("/profile/<username>")
+def profile(username):
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    
+    if session["user"]:
+        return render_template("profile.html", username=username)
+    
+    return redirect(url_for("login"))
 
 
 @app.route("/my_expenses/<username>")
