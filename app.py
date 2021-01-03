@@ -113,9 +113,10 @@ def logout():
 def profile(username):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
+    categories = mongo.db.categories.find().sort("category_name", 1)
     
     if session["user"]:
-        return render_template("profile.html", username=username)
+        return render_template("profile.html", username=username, categories=categories)
     
     return redirect(url_for("login"))
 
@@ -150,6 +151,24 @@ def new_expense():
     expenses = mongo.db.expenses.find()
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("new_expense.html", categories=categories)
+
+
+@app.route("/edit_expense/<expense_id>", methods=["GET", "POST"])
+def edit_expense(expense_id):
+    if request.method == "POST":
+        updated_expense = {
+            "date": request.form.get("date"),
+            "category_name": request.form.get("category_name"),
+            "expense_description": request.form.get("expense_description"),
+            "expense_amount": float(request.form.get("expense_amount")),
+            "created_by": session["user"]
+        }
+        mongo.db.expenses.update({"_id": ObjectId(expense_id)}, updated_expense)
+        flash("Expense successfully updated")
+    
+    expense = mongo.db.expenses.find_one({"_id": ObjectId(expense_id)})
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("edit_expense.html", expense=expense, categories=categories)
 
 
 @app.route("/delete_expense/<expense_id>")

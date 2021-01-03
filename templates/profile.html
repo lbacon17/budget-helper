@@ -4,28 +4,63 @@
 <div class="center-align">
     <h2>{{ username }}'s Profile</h2>
 
-    <div class="row">
-        <div class="col s12">
-            <h5 class="left">My Account</h6>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h5 class="left">My Account</h6>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <p>Username &#58; <span>{{ username }}</span></p>
-            <a href="{{ url_for('update_profile', user_id=session['user']._id) }}" class="btn-large blue">Update Details</a>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col s12">
-            <h3 class="left">Delete Account</h3>
+        <div class="row">
+            <div class="col s12">
+                <p>Username &#58; <span>{{ username }}</span></p>
+                <a href="{{ url_for('update_profile', user_id=session['user']._id) }}" class="btn-large blue">Update Details</a>
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col s12">
-            <p>Delete the account for {{ username }}</p>
-            <a href="{{ url_for('delete_account', user_id=session['user']._id) }}" class="btn-large red">Delete Account</a>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h3 class="left">Set Budgets</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container expenses-container">
+        <div class="row">
+            <div class="col s12">
+                <form action="" method="POST">
+                    {% for category in categories %}
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <span>{{ category.category_name }}</span>
+                                <input id="budget_amount" name="budget_amount" type="number" min="0.01" step="any" class="validate" placeholder="GBP(£)">
+                                <label for="budget_amount">Amount</label>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col s12">
+                            <button type="submit" class="btn-large green">Set budgets</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h3 class="left">Delete Account</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12">
+                <p>Delete the account for {{ username }}</p>
+                <a href="{{ url_for('delete_account', user_id=session['user']._id) }}" class="btn-large red">Delete Account</a>
+            </div>
         </div>
     </div>
 </div>

@@ -7,38 +7,55 @@
 
     <h6 class="center-align">Here are your expenses for each month below.</h4>
 
-    <div class="container expenses-container center-align">
+    <div class="container expenses-container">
+        {% for month in months %}
+        <div class="collapsible-header">
+            {{ month.month_name }}
+        </div>
         {% for expense in expenses %}
             <div class="row expense-record">
                 <div class="col s6 m3">
                     <span>{{ expense.date }}</span>
                 </div>
-                <div class="col s6 m3">
+                <div class="col s6 m2">
                     <span>{{ expense.category_name }}</span>
                 </div>
                 <div class="col s6 m3">
                     <span>{{ expense.expense_description }}</span>
                 </div>
-                <div class="col s6 m3">
+                <div class="col s6 m2">
                     <span>GBP {{ expense.expense_amount }}</span>
+                </div>
+                <div class="col s6 m1">
+                    <a href="{{ url_for('edit_expense', expense_id=expense._id) }}">
+                        <i class="fas fa-pencil-alt light-blue-text right tooltipped" data-tooltip="EDIT EXPENSE"></i>
+                    </a>
+                </div>
+                <div class="col s6 m1">
                     <a href="{{ url_for('delete_expense', expense_id=expense._id ) }}">                        
                         <i class="fas fa-trash-alt red-text right tooltipped" data-tooltip="DELETE EXPENSE"></i>
                     </a>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s12">
-                    {% set totals = [] %}
-                    {% for expense in expenses %}
-                        {% set amount = expense.expense_amount | float %}
-                        {% if totals.append(amount) %}
-                            <span>{{ totals }}</span>
-                        {% endif %}
-                    {% endfor %}
-                    <span>GBP {{ totals | sum }}</span>
-                </div>
-            </div>
         {% endfor %}
+        {% endfor %}
+        <div class="row expense-totals">
+            <div class="col s12 m8">
+                {% set totals = [] %}
+                {% for expense in expenses %}
+                    {% set amount = expense.expense_amount | float %}
+                    {% if totals.append(amount) %}
+                        <span>{{ totals }}</span>
+                    {% endif %}
+                {% endfor %}
+                <span class="total right"><strong>Total&#58;</strong> GBP {{ totals | sum }}</span>
+            </div>
+            <div class="col s12 m4">
+                <a href="{{ url_for('new_expense') }}">
+                    <i class="fas fa-plus-circle green-text right tooltipped" data-tooltip="ADD NEW EXPENSE"></i>
+                </a>
+            </div>
+        </div>
     </div>
     {% else %}
     <div class="row">

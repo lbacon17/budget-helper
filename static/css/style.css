@@ -2,7 +2,6 @@
 
 body {
     background-color: #fafafa;
-    height: 100vh;
 }
 
 .preloader-wrapper {
@@ -78,7 +77,10 @@ main {
 }
 
 .expenses-container {
+    background-color: #fff8dc;
+    box-shadow: 5px 5px 5px 5px #979797;
     padding: 30px 20px;
+    margin: 1.5rem auto;
 }
 
 /*-- login page --*/
@@ -112,19 +114,27 @@ main {
 /*-- my expenses page --*/
 
 .expense-record {
-    padding: 10px 15px;
+    padding: 10px 5px;
+    border-bottom: 2px solid #333222;
 }
 
-.expense-record i {
+.expense-record i,
+.expense-totals i {
     font-size: 1.4rem;
+}
+
+.total {
+    font-size: 1.6rem;
+    font-weight: 500;
 }
 
 /*-- footer --*/
 
 .page-footer {
     height: 10.3rem;
-    position: absolute; 
+    /* position: absolute;  */
     bottom: 0;
+    left: 0;
     background-color: #000555;
     color: #ffffff;
     width: 100%;
