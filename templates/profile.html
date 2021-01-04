@@ -27,26 +27,22 @@
     </div>
 
     <div class="container expenses-container">
-        <div class="row">
-            <div class="col s12">
-                <form action="" method="POST">
-                    {% for category in categories %}
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <span>{{ category.category_name }}</span>
-                                <input id="budget_amount" name="budget_amount" type="number" min="0.01" step="any" class="validate" placeholder="GBP(£)">
-                                <label for="budget_amount">Amount</label>
+        {% for category in categories %}
+            <div class="row">
+                <div class="col s12">
+                    <form action="" method="POST">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <span>{{ category.category_name }}</span>
+                                    <input id="budget_amount" name="budget_amount" type="number" min="0.01" step="any" class="validate" placeholder="GBP(£)">
+                                    <label for="budget_amount">Amount</label>
+                                    <button type="submit" class="btn-large green">SET</button>
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                    <div class="row">
-                        <div class="col s12">
-                            <button type="submit" class="btn-large green">Set budgets</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
 
     <div class="container">
@@ -59,7 +55,7 @@
         <div class="row">
             <div class="col s12">
                 <p>Delete the account for {{ username }}</p>
-                <a href="{{ url_for('delete_account', user_id=session['user']._id) }}" class="btn-large red">Delete Account</a>
+                <a href="{{ url_for('delete_account', username=username) }}" class="btn-large red">Delete Account</a>
             </div>
         </div>
     </div>

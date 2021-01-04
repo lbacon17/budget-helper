@@ -23,7 +23,8 @@ mongo = PyMongo(app)
 @app.route("/home_page")
 def home_page():
     expenses = mongo.db.expenses.find().sort("date", -1)
-    return render_template("index.html", expenses=expenses)
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("index.html", expenses=expenses, categories=categories)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -69,7 +70,6 @@ def update_profile(username):
         mongo.db.users.update({"_id": ObjectId(username)}, updated_account)
         flash("Your profile was successfully updated")
     
-    username = mongo.db.users.find_one({"username": session["user"]}["username"])
     # username = mongo.db.users.find_one({"_id": ObjectId(username)})
     return render_template("update_profile.html", username=username)
 
@@ -118,6 +118,21 @@ def profile(username):
         return render_template("profile.html", username=username, categories=categories)
     
     return redirect(url_for("login"))
+
+
+@app.route("/set_budgets/<category_id>", methods=["GET", "POST"])
+def set_budgets(category_id):
+    if request.method == "POST":
+        budget = {
+            "category_name": request.form.get("category_name"),
+            "budget_amount": float(request.form.get("budget_amount"))
+        }
+        mongo.db.categories.update({"id": ObjectId(category_id)}, budget)
+        flash("Budget set successfully")
+    
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("index.html", category=category, categories=categories)
 
 
 @app.route("/my_expenses/<username>")
@@ -182,7 +197,7 @@ def delete_expense(expense_id):
 def delete_account(username):
     users = mongo.db.users.find()
     session.pop("user")
-    mongo.db.users.remove(username)
+    mongo.db.users.remove({"username": username})
     flash("Your account was deleted. You will now be redirected to the home page.")
     return redirect(url_for("home_page", username=username, users=users))
 

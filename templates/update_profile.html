@@ -10,11 +10,11 @@
             <label for="username">Username</label>
         </div>
         <div class="input-field col s6 offset-s3">
-            <input id="email" name="email" type="email" value="{{ email_address }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="validate" required>
+            <input id="email" name="email" type="email" value="{{ username.email_address }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="validate" required>
             <label for="email">Email address</label>
         </div>
         <div class="input-field col s6 offset-s3">
-            <input id="password" name="password" value="{{ password }}" type="password" minlength="8" maxlength="25" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
+            <input id="password" name="password" value="{{ username.password }}" type="password" minlength="8" maxlength="25" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
             <label for="password">Password</label>
         </div>
     </div>
