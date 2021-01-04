@@ -178,13 +178,13 @@ def delete_expense(expense_id):
     return redirect(url_for("my_expenses", username=session["user"], expenses=expenses))
 
 
-@app.route("/delete_account/<user_id>")
-def delete_account(user_id):
+@app.route("/delete_account/<username>")
+def delete_account(username):
     users = mongo.db.users.find()
     session.pop("user")
-    mongo.db.users.remove({"_id": ObjectId(user_id)})
+    mongo.db.users.remove(username)
     flash("Your account was deleted. You will now be redirected to the home page.")
-    return redirect(url_for("home_page", username=session["user"], users=users))
+    return redirect(url_for("home_page", username=username, users=users))
 
 
 if __name__ == "__main__":
