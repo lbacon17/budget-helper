@@ -57,8 +57,8 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/update_profile/<user_id>", methods=["GET", "POST"])
-def update_profile(user_id):
+@app.route("/update_profile/<username>", methods=["GET", "POST"])
+def update_profile(username):
     if request.method == "POST":
         updated_account = {
             "username": request.form.get("username").lower(),
@@ -66,12 +66,11 @@ def update_profile(user_id):
             "email_address": request.form.get("email").lower(),
             "is_superuser": False
         }
-        mongo.db.users.update({"_id": ObjectId(user_id)}, updated_account)
+        mongo.db.users.update({"_id": ObjectId(username)}, updated_account)
         flash("Your profile was successfully updated")
-        return redirect(url_for("update_profile"))
     
-    user = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
+    username = mongo.db.users.find_one({"username": session["user"]}["username"])
+    # username = mongo.db.users.find_one({"_id": ObjectId(username)})
     return render_template("update_profile.html", username=username)
 
 

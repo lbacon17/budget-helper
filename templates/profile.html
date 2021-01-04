@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col s12">
                 <p>Username &#58; <span>{{ username }}</span></p>
-                <a href="{{ url_for('update_profile', user_id=session['user']._id) }}" class="btn-large blue">Update Details</a>
+                <a href="{{ url_for('update_profile', username=username) }}" class="btn-large blue">Update Details</a>
             </div>
         </div>
     </div>
