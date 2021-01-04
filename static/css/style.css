@@ -42,7 +42,7 @@ main {
 /*-- homepage --*/
 
 .content {
-    min-height: 75vh;
+    min-height: 100vh;
 }
 
 .callout-container {
@@ -68,6 +68,13 @@ main {
     border-radius: 10px;
     height: 65px;
     line-height: 65px;
+}
+
+.maps-para {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1.1rem;
+    color: #121212;
+    margin: 15px 10px;
 }
 
 .welcome-heading {
