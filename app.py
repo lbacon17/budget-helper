@@ -64,13 +64,13 @@ def update_profile(username):
         updated_account = {
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password")),
-            "email_address": request.form.get("email").lower(),
+            "email_address": reyhbquest.form.get("email").lower(),
             "is_superuser": False
         }
+        username = mongo.db.users.find_one({"_id": ObjectId(username)})
         mongo.db.users.update({"_id": ObjectId(username)}, updated_account)
         flash("Your profile was successfully updated")
     
-    # username = mongo.db.users.find_one({"_id": ObjectId(username)})
     return render_template("update_profile.html", username=username)
 
 
@@ -132,7 +132,7 @@ def set_budgets(category_id):
     
     category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("index.html", category=category, categories=categories)
+    return render_template("profile.html", category=category, categories=categories)
 
 
 @app.route("/my_expenses/<username>")

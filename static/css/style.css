@@ -77,6 +77,11 @@ main {
     margin: 15px 10px;
 }
 
+#map {
+    min-height: 360px;
+    margin-top: 40px;
+}
+
 .welcome-heading {
     font-family: 'Roboto', sans-serif;
     font-size: 4rem;

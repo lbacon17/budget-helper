@@ -30,7 +30,7 @@
         {% for category in categories %}
             <div class="row">
                 <div class="col s12">
-                    <form action="" method="POST">
+                    <form action="{{ url_for('set_budgets', category_id=category._id) }}" method="POST">
                             <div class="row">
                                 <div class="input-field col s12">
                                     <span>{{ category.category_name }}</span>

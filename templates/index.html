@@ -4,34 +4,11 @@
     <div class="content">
         {% if session.user %}
             <h1 class="welcome-heading">Welcome, {{ session.user }}</h1>
-
-            <div class="container expenses-container">
-                {% for category in categories %}
-                    <div class="row">
-                        <div class="col s12">
-                            <form action="{{ url_for('set_budgets', category_id=category._id) }}" method="POST">
-                                    <div class="row">
-                                        <div class="input-field col s3">
-                                            <span>{{ category.category_name }}</span>
-                                        </div>
-                                        <div class="input-field col s7">
-                                            <input id="budget_amount" name="budget_amount" type="number" min="0.01" step="any" class="validate" placeholder="GBP(£)">
-                                            <label for="budget_amount">Amount</label>
-                                        </div>
-                                        <div class="col s2">
-                                            <button type="submit" class="btn-large green">SET</button>
-                                        </div>
-                                    </div>
-                            </form>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-
-            <h5>Here are your most recent expenses</h3>
             
-            <div class="container expenses-container">
-                {% for expense in expenses %}
+            <h5>Here are your most recent transactions</h5>
+
+            {% for expense in expenses if session.user|lower == expense.created_by|lower %}
+                <div class="container expenses-container">
                     <div class="row">
                         <div class="col s6 m3">
                             <span>{{ expense.date }}</span>
@@ -46,8 +23,16 @@
                             <span>GBP {{ expense.expense_amount }}</span>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% else %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <h4>You have no expenses yet.</h4>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
             <div class="container">
                 <div class="row">
                     <div class="col s6">
@@ -75,23 +60,23 @@
                     <div class="col s12">
                         <h1>Where to Find Us</h1>
                     </div>
-                    <hr class="hr-dotted">
-                    <div class="row">
-                        <div class="col m4">
-                            <p class="maps-para"><i class="fas fa-map-marker-alt"></i> 93 Crown Street 
-                                <br>
-                                London
-                                <br>
-                                SW5 7NL
-                            </p>
-                            <p class="maps-para"><i class="fas fa-phone-square"></i> &#40;078&#41; 11 033 461</p>
-                            <p class="maps-para"><i class="fas fa-at"></i> <a href="mailto:info@budgethelper.com">info&#64;budgethelper.com</a></p>
-                            <p class="maps-para"><i class="fas fa-door-open"></i> Open Mon-Sun 6am - midnight</p>
-                        </div>
-                        <div class="col m8">
-                            <div id="map">
+                </div>
+                <hr class="hr-dotted">
+                <div class="row">
+                    <div class="col m4">
+                        <p class="maps-para"><i class="fas fa-map-marker-alt"></i> 93 Crown Street 
+                            <br>
+                            London
+                            <br>
+                            SW5 7NL
+                        </p>
+                        <p class="maps-para"><i class="fas fa-phone-square"></i> &#40;078&#41; 11 033 461</p>
+                        <p class="maps-para"><i class="fas fa-at"></i> <a href="mailto:info@budgethelper.com">info&#64;budgethelper.com</a></p>
+                        <p class="maps-para"><i class="fas fa-door-open"></i> Open Mon-Sun 6am - midnight</p>
+                    </div>
+                    <div class="col m8">
+                        <div id="map">
 
-                            </div>
                         </div>
                     </div>
                 </div>
