@@ -125,9 +125,10 @@ def set_budgets(category_id):
     if request.method == "POST":
         budget = {
             "category_name": request.form.get("category_name"),
-            "budget_amount": float(request.form.get("budget_amount"))
+            "budget_amount": float(request.form.get("budget_amount")),
+            "created_by": session["user"]
         }
-        mongo.db.categories.update({"id": ObjectId(category_id)}, budget)
+        mongo.db.categories.update({"_id": ObjectId(category_id)}, budget)
         flash("Budget set successfully")
     
     category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
