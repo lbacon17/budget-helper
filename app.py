@@ -64,7 +64,7 @@ def update_profile(username):
         updated_account = {
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password")),
-            "email_address": reyhbquest.form.get("email").lower(),
+            "email_address": request.form.get("email").lower(),
             "is_superuser": False
         }
         username = mongo.db.users.find_one({"_id": ObjectId(username)})
