@@ -58,8 +58,8 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/update_profile/<username>", methods=["GET", "POST"])
-def update_profile(username):
+@app.route("/update_profile/<user_id>", methods=["GET", "POST"])
+def update_profile(user_id):
     if request.method == "POST":
         updated_account = {
             "username": request.form.get("username").lower(),
@@ -67,11 +67,12 @@ def update_profile(username):
             "email_address": request.form.get("email").lower(),
             "is_superuser": False
         }
-        username = mongo.db.users.find_one({"_id": ObjectId(username)})
-        mongo.db.users.update({"_id": ObjectId(username)}, updated_account)
+        mongo.db.users.update({"_id": ObjectId(user_id)}, updated_account)
         flash("Your profile was successfully updated")
-    
-    return render_template("update_profile.html", username=username)
+
+    user = mongo.db.users.find_one({"id": ObjectId(user_id)})
+    users = mongo.db.users.find()
+    return render_template("update_profile.html", user=user, users=users)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -133,7 +134,25 @@ def set_budgets(category_id):
     
     category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("profile.html", category=category, categories=categories)
+    expenses = mongo.db.expenses.find()
+    return render_template("profile.html", category=category, categories=categories, expenses=expenses)
+
+@app.route("/calculate_remaining_budgets/<category_id>")
+def calculate_remaining_budgets(category_id, expense_id):
+    categories = mongo.db.categories.find()
+    expenses = mongo.db.expenses.find()
+
+    zipped_data = zip(expenses, categories)
+    for expense, category in zipped_data:
+        remaining_budget = {
+            "category_name": request.form.get("category_name"),
+            "budget_amount": float(request.form.get("budget_amount")),
+            "remaining_budget": float(category.budget_amount - expense.expense_amount)
+        }
+        mongo.db.categories.update_one({"_id": ObjectId(category_id)}, remaining_budget)
+        return redirect(url_for("calculate_remaining_budgets"))
+    
+    return render_template("profile.html", expenses=expenses, categories=categories)
 
 
 @app.route("/my_expenses/<username>")
