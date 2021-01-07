@@ -28,7 +28,7 @@
         {% for category in categories %}
             <div class="row">
                 <div class="col s9">
-                    <form action="{{ url_for('set_budgets', category_id=category._id) }}" method="POST">
+                    <form action="{{ url_for('set_budgets', username=username) }}" method="POST">
                             <div class="row">
                                 <div class="input-field col s4">
                                     <select id="category_name" name="category_name" class="validate" required>
@@ -46,13 +46,21 @@
                     </form>
                 </div>
                 <div class="col s3">
-                    <span>Your budget for {{ category.category_name }} is &#163;{{ category.budget_amount }}</span>
+                    <span>Your budget for {{ category.category_name }} is &#163;{{ budget }}</span>
                 </div>
             </div>
         {% endfor %}
     </div>
 
     <h3 class="left">Remaining Budgets</h3>
+
+    {% for category in categories %}
+        <div class="row">
+            <div class="col s12">
+                <p>You have &#163;{{ remaining_budget }} remaining for {{ category.category_name }}</p>
+            </div>
+        </div>
+    {% endfor %}
 
     <div class="container">
         <div class="row">
@@ -64,18 +72,12 @@
         <div class="row">
             <div class="col s12">
                 <p>Delete the account for {{ username }}</p>
-                <div class="popup">
-                    <a onclick="confirmDeletion()" href="{{ url_for('delete_account', username=username) }}" class="btn-large red">Delete Account</a>
+                    <button class="btn-large red" onclick="confirmDeletion()">Delete Account</button>
                     <div id="popup">
-                        <div class="popuptext">
-                            <span>Are you sure you want to delete your account?<br>This cannot be undone.</span>
-                            <a>Yes</a> <a>No</a>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

@@ -45,42 +45,6 @@ main {
 
 /*-- homepage --*/
 
-#popup {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.popup .popuptext {
-    visibility: hidden;
-    width: 160px;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -80px;
-}
-
-.popup .popuptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
-
 .content {
     min-height: 100vh;
 }
@@ -143,9 +107,8 @@ main {
 
 .login-heading,
 .registration-heading {
-    font-size: 3.6rem;
+    font-size: 2rem;
     font-family: 'Roboto', sans-serif;
-    font-weight: 600;
 }
 
 .input-field label {
@@ -154,17 +117,33 @@ main {
 
 /*-- registration page --*/
 
-.registration,
+/* .registration,
 .sign-in {
     margin: 30px 40px;
     /* border: 2px solid #676767;
     border-radius: 10px;
-    background-color: #fefefe; */
+    background-color: #fefefe;
+} */
+
+.sign-in {
+    margin: 30px 5px;
+}
+
+.sign-in .input-field .prefix,
+.registration .input-field .prefix {
+    font-size: 1.4rem;
+    top: 0.8rem;
 }
 
 .complete-registration,
 .complete-login {
     border-radius: 10px;
+}
+
+.register-link,
+.login-link {
+    color: #121212;
+    text-decoration: underline;
 }
 
 /*-- my expenses page --*/
@@ -311,7 +290,9 @@ main {
         font-size: 1.8rem;
     }
 
-    .maps-header {
+    .maps-header,
+    .login-heading,
+    .registration-heading {
         font-size: 2.4rem;
     }
 }
@@ -340,7 +321,9 @@ main {
         line-height: 55px;
     }
 
-    .maps-header {
+    .maps-header,
+    .login-heading,
+    .registration-heading {
         font-size: 2.5rem;
     }
 
@@ -385,9 +368,24 @@ main {
         margin-top: 0;
         font-size: 1.6rem;
     }
+
+    .login-heading,
+    .registration-heading {
+        font-size: 3.2rem;
+    }
     
     .registration {
         margin: 40px 50px 30px 50px;
+    }
+
+    .sign-in {
+        margin: 30px 40px;
+    }
+
+    .sign-in .input-field .prefix,
+    .registration .input-field .prefix {
+        font-size: 2rem;
+        top: 0.5rem;
     }
 }
 

@@ -99,11 +99,9 @@
     </section>
 
     <main class="container">
-        <div class="content">
-            {% block content %}
-        
-            {% endblock %}
-        </div>
+        {% block content %}
+    
+        {% endblock %}
     </main>
 
     <footer class="page-footer">
@@ -116,6 +114,9 @@
                         <i class="fas fa-phone"></i> &#40;078&#41; 11 033 461<br />
                         <i class="fas fa-at"></i> <a href="mailto:#">info&#64;budgethelper.com</a>
                     </address>
+                </div>
+                <div class="col l2 s12">
+                    <a href="{{ url_for('home_page') }}" class="brand-logo">BUDGET H&#163;LP&#8364;R</a>
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h6 class="social-media-header">Follow us on social media&#33;</h6>

@@ -17,6 +17,7 @@ $(document).ready(function(){
 });
 
 function confirmDeletion() {
-    var popup = document.getElementById("popup");
-    popup.classList.toggle("show");
+    // var popup = document.getElementById("popup");
+    // popup.classList.toggle("show");
+    confirm("Are you sure you want to delete your account?");
 }

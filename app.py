@@ -125,23 +125,21 @@ def profile(username):
     return redirect(url_for("login"))
 
 
-@app.route("/set_budgets/<category_id>", methods=["GET", "POST"])
-def set_budgets(category_id):
+@app.route("/set_budgets/<username>", methods=["GET", "POST"])
+def set_budgets(username):
     if request.method == "POST":
         budget = {
             "category_name": request.form.get("category_name"),
             "budget_amount": float(request.form.get("budget_amount")),
             "created_by": session["user"]
         }
-        mongo.db.categories.update({"_id": ObjectId(category_id)}, budget)
+        mongo.db.budgets.insert_one(budget)
         flash("Budget set successfully")
+        return redirect(url_for("profile"))
     
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]    
-    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
-    expenses = mongo.db.expenses.find()
-    return render_template("profile.html", category=category, categories=categories, expenses=expenses)
+    budgets = mongo.db.budgets.find()
+    return render_template("profile.html", budgets=budgets, username=username, categories=categories)
 
 @app.route("/calculate_remaining_budgets/<category_id>")
 def calculate_remaining_budgets(category_id, expense_id):
