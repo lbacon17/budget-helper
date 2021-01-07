@@ -15,3 +15,8 @@ $(document).ready(function(){
     $('.preloader-wrapper').fadeOut('slow');
     $('.modal').modal()
 });
+
+function confirmDeletion() {
+    var popup = document.getElementById("popup");
+    popup.classList.toggle("show");
+}

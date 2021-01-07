@@ -3,7 +3,7 @@
 
 <h1>Update account details for {{ username }}</h1>
 
-<form method="POST" action="{{ url_for('update_profile', user_id=user._id) }}">
+<form method="POST" action="{{ url_for('update_profile', username=username) }}">
     <div class="row">
         <div class="input-field col s6 offset-s3">
             <input id="username" name="username" value="{{ username }}" type="text" minlength="4" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>

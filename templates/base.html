@@ -47,7 +47,7 @@
                         <li><a href="{{ url_for('my_expenses', username=session['user']) }}">My Expenses</a></li>
                         <li><a href="{{ url_for('profile', username=session['user']) }}">View Profile</a></li>
                         <li><a href="{{ url_for('new_expense') }}">New Expense</a></li>
-                            {% if super_user %}
+                            {% if is_superuser %}
                                 <li><a href="">Manage Categories</a></li>
                             {% endif %}
                         <li><a href="{{ url_for('logout') }}">Logout</a></li>

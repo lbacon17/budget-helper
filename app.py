@@ -58,21 +58,25 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/update_profile/<user_id>", methods=["GET", "POST"])
-def update_profile(user_id):
+@app.route("/update_profile/<username>", methods=["GET", "POST"])
+def update_profile(username):
     if request.method == "POST":
+        is_superuser = True if mongo.db.users.find_one(
+            {"username": username,
+            "is_superuser": True}) else False
         updated_account = {
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password")),
             "email_address": request.form.get("email").lower(),
-            "is_superuser": False
+            "is_superuser": is_superuser
         }
-        mongo.db.users.update({"_id": ObjectId(user_id)}, updated_account)
-        flash("Your profile was successfully updated")
+        mongo.db.users.update({"username": username}, updated_account)
 
-    user = mongo.db.users.find_one({"id": ObjectId(user_id)})
-    users = mongo.db.users.find()
-    return render_template("update_profile.html", user=user, users=users)
+        session["user"] = request.form.get("username").lower()
+        flash("Your profile was successfully updated")
+        return redirect(url_for("profile", username=username))
+
+    return render_template("update_profile.html", username=username)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -132,6 +136,8 @@ def set_budgets(category_id):
         mongo.db.categories.update({"_id": ObjectId(category_id)}, budget)
         flash("Budget set successfully")
     
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]    
     category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     expenses = mongo.db.expenses.find()
@@ -216,6 +222,7 @@ def delete_expense(expense_id):
 @app.route("/delete_account/<username>")
 def delete_account(username):
     users = mongo.db.users.find()
+    confirm_deletion = confirm(text="Are you sure you want to delete your account?\nThis can not be undone.", title="Confirm account deletion", buttons=["Yes, delete my account", "Cancel"])
     session.pop("user")
     mongo.db.users.remove({"username": username})
     flash("Your account was deleted. You will now be redirected to the home page.")
